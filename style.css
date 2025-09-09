@@ -1,4 +1,4 @@
-/* Reset and Base Styles with Dark Mode */
+
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +8,8 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color: #f5f5f5; /* Light text for dark background */
-    background-color: #121212; /* Dark background */
+    color: #f5f5f5; 
+    background-color: #121212;
     background-image: url('images/library.jpg');
     background-size: cover;
     background-position: center;
@@ -17,8 +17,7 @@ body {
     position: relative;
 }
 
-/* Dark overlay for the entire page */
-/* Update your body::before pseudo-element */
+
 body::before {
     content: "";
     position: fixed;
@@ -26,24 +25,24 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay with 40% opacity */
-    backdrop-filter: blur(3px); /* Add blur to the whole background */
-    -webkit-backdrop-filter: blur(3px); /* For Safari support */
+    background-color: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(3px); 
+    -webkit-backdrop-filter: blur(3px); 
     z-index: -1;
 }
 
 a {
     text-decoration: none;
-    color: #1976D2; /* Blue for links to stand out */
+    color: #1976D2; 
 }
 
 ul {
     list-style: none;
 }
 
-/* Header Styles */
+
 header {
-    background-color: #1e1e1e; /* Dark header */
+    background-color: #1e1e1e; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     padding: 1rem 2rem;
     display: flex;
@@ -60,11 +59,11 @@ header {
 #school-logo {
     height: 60px;
     margin-right: 15px;
-    filter: brightness(1.2); /* Make logo slightly brighter */
+    filter: brightness(1.2);
 }
 
 .logo h1 {
-    color: #1976D2; /* Blue title */
+    color: #1976D2;
     font-size: 1.8rem;
 }
 
@@ -81,31 +80,31 @@ nav ul li a {
     font-weight: 600;
     padding: 0.5rem;
     display: block;
-    color: #e0e0e0; /* Light gray for nav links */
+    color: #e0e0e0; 
 }
 
 nav ul li a:hover {
     color: #1976D2;
 }
 
-/* Search Container */
+
 .search-container {
     background-color: #1a1a1a;
     background-image: url('images/library-background.jpg');
     background-size: cover;
     background-position: center;
-    background-blend-mode: multiply; /* Darker blend mode */
+    background-blend-mode: multiply; 
     padding: 3rem 2rem;
     text-align: center;
     border-bottom: 5px solid #1976D2;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background-color: rgba(0, 0, 0, 0.9); /* Dark overlay with 80% opacity */
+    background-color: rgba(0, 0, 0, 0.9); 
 }
 
 #search-form {
     max-width: 900px;
     margin: 0 auto;
-    background: rgba(30, 30, 30, 0.9); /* Dark semi-transparent form */
+    background: rgba(30, 30, 30, 0.9); 
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
@@ -179,7 +178,7 @@ nav ul li a:hover {
     transform: translateY(-2px);
 }
 
-/* Main Content */
+
 main {
     max-width: 1200px;
     margin: 2rem auto;
@@ -188,11 +187,11 @@ main {
 
 section {
     margin-bottom: 3rem;
-    background-color: rgba(30, 30, 30, 0.7); /* Semi-transparent dark background */
+    background-color: rgba(30, 30, 30, 0.7); 
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px); /* Adds a slight blur to the background behind */
+    backdrop-filter: blur(5px); 
 }
 
 section h2 {
@@ -203,7 +202,7 @@ section h2 {
     padding-bottom: 0.5rem;
 }
 
-/* Collection Intro */
+
 .collection-intro {
     background-color: rgba(40, 40, 40, 0.7);
     padding: 1rem;
@@ -212,7 +211,7 @@ section h2 {
     border-left: 4px solid #1976D2;
 }
 
-/* Collapsible Section Styles */
+
 .collapsible-section .section-header {
     display: flex;
     justify-content: space-between;
@@ -246,10 +245,10 @@ section h2 {
 }
 
 .category-content.show {
-    max-height: 500px; /* Adjust this value based on your content */
+    max-height: 500px; 
 }
 
-/* Book Grid */
+
 .book-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -354,7 +353,7 @@ section h2 {
     background-color: #1e88e5;
 }
 
-/* Book Description on Hover */
+
 .book-description {
     position: absolute;
     top: 0;
@@ -380,7 +379,7 @@ section h2 {
     opacity: 1;
 }
 
-/* Category Grid */
+
 .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -423,7 +422,7 @@ section h2 {
     color: #1976D2;
 }
 
-/* Library Info Section */
+
 .library-info {
     margin-top: 3rem;
 }
@@ -466,7 +465,7 @@ section h2 {
     color: #e0e0e0;
 }
 
-/* Footer */
+
 footer {
     background-color: #121212;
     color: #e0e0e0;
@@ -513,14 +512,14 @@ footer {
     border-top: 1px solid #333;
 }
 
-/* Book actions container for buttons */
+
 .book-actions {
     display: flex;
     gap: 8px;
     margin-top: 8px;
 }
 
-/* Style for the download button */
+
 .download-book {
     display: inline-flex;
     align-items: center;
@@ -542,7 +541,7 @@ footer {
     font-size: 11px;
 }
 
-/* Adjust the view details button to match */
+
 .view-details {
     display: inline-flex;
     align-items: center;
@@ -559,7 +558,7 @@ footer {
     background-color: #1e88e5;
 }
 
-/* Book Details page adjustments */
+
 .book-details-container {
     background-color: rgba(30, 30, 30, 0.8);
     backdrop-filter: blur(5px);
@@ -580,7 +579,7 @@ footer {
     background-color: rgba(40, 40, 40, 0.7);
 }
 
-/* Add a subtle glow to important elements */
+
 .book-title, 
 .category-card:hover,
 .book-card:hover,
@@ -588,7 +587,7 @@ footer {
     text-shadow: 0 0 10px rgba(25, 118, 210, 0.3);
 }
 
-/* Mobile adjustments remain the same with dark colors */
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -620,4 +619,5 @@ footer {
     .advanced-search select {
         width: 100%;
     }
+
 }
