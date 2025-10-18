@@ -1,6 +1,7 @@
-
+// Sample book data - Harry Potter series
+// Book Collection Data
 const books = [
-    
+    // Harry Potter Series (7 books)
     {
         id: 1,
         title: "Harry Potter and the Philosopher's Stone",
@@ -2077,9 +2078,9 @@ const books = [
     },
 ];
 
-
+// DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
-    
+    // Initialize the site
     loadFeaturedBooks();
     setupSearchFunctionality();
     setupTabFunctionality();
@@ -2087,24 +2088,71 @@ document.addEventListener('DOMContentLoaded', function() {
     setupCollapsibleSections();
 });
 
-
+// Load featured books on the homepage
+// Load featured books on the homepage
 function loadFeaturedBooks() {
     const featuredBooksContainer = document.querySelector('.featured-books .book-grid');
     if (!featuredBooksContainer) return;
     
+    // Show first 20 books
+    const initialBooks = books.slice(0, 16);
+    const remainingBooks = books.slice(16);
     
-    books.forEach(book => {
+    // Add initial books
+    initialBooks.forEach(book => {
         featuredBooksContainer.appendChild(createBookCard(book));
     });
+    
+    // If there are more books, add "See More" button
+    if (remainingBooks.length > 0) {
+        const seeMoreContainer = document.createElement('div');
+        seeMoreContainer.className = 'see-more-container';
+        seeMoreContainer.innerHTML = `
+            <button class="see-more-btn" id="seeMoreBtn">
+                <i class="fas fa-chevron-down"></i> See More Books (${remainingBooks.length} more)
+            </button>
+        `;
+        
+        // Insert after the book grid
+        featuredBooksContainer.parentElement.insertBefore(seeMoreContainer, featuredBooksContainer.nextSibling);
+        
+        // Create hidden container for remaining books
+        const hiddenBooksContainer = document.createElement('div');
+        hiddenBooksContainer.className = 'book-grid hidden-books';
+        hiddenBooksContainer.id = 'hiddenBooks';
+        
+        remainingBooks.forEach(book => {
+            hiddenBooksContainer.appendChild(createBookCard(book));
+        });
+        
+        // Insert hidden books after see more button
+        seeMoreContainer.parentElement.insertBefore(hiddenBooksContainer, seeMoreContainer.nextSibling);
+        
+        // Add click event to toggle
+        document.getElementById('seeMoreBtn').addEventListener('click', function() {
+            const hiddenBooks = document.getElementById('hiddenBooks');
+            const icon = this.querySelector('i');
+            
+            if (hiddenBooks.classList.contains('show')) {
+                hiddenBooks.classList.remove('show');
+                icon.className = 'fas fa-chevron-down';
+                this.innerHTML = `<i class="fas fa-chevron-down"></i> See More Books (${remainingBooks.length} more)`;
+            } else {
+                hiddenBooks.classList.add('show');
+                icon.className = 'fas fa-chevron-up';
+                this.innerHTML = `<i class="fas fa-chevron-up"></i> Show Less`;
+            }
+        });
+    }
 }
 
 
-
+// Create a book card element with the new structure and download button
 function createBookCard(book) {
     const bookCard = document.createElement('div');
     bookCard.className = 'book-card';
     
-    
+    // Use custom URLs if they exist, otherwise use the default format
     const detailsUrl = book.detailsUrl || `book-details.html?id=${book.id}`;
     const downloadUrl = book.downloadUrl || `downloads/${book.id}.pdf`;
     
@@ -2128,7 +2176,7 @@ function createBookCard(book) {
     
     return bookCard;
 }
-
+// Setup search functionality
 function setupSearchFunctionality() {
     const searchForm = document.getElementById('search-form');
     if (!searchForm) return;
@@ -2139,36 +2187,36 @@ function setupSearchFunctionality() {
         const searchInput = document.getElementById('search-input').value.toLowerCase();
         const categoryFilter = document.getElementById('category-filter').value;
         
-        
+        // Perform search
         const searchResults = books.filter(book => {
-            
+            // Match search text
             const matchesSearch = searchInput === '' || 
                                   book.title.toLowerCase().includes(searchInput) || 
                                   book.author.toLowerCase().includes(searchInput) ||
                                   book.isbn.includes(searchInput);
             
-            
+            // Match category if selected
             const matchesCategory = categoryFilter === '' || 
                                    book.genre.toLowerCase().includes(categoryFilter.toLowerCase());
             
             return matchesSearch && matchesCategory;
         });
         
-        
+        // Display search results
         displaySearchResults(searchResults);
     });
 }
 
-
+// Display search results
 function displaySearchResults(results) {
     const featuredSection = document.querySelector('.featured-books');
     if (!featuredSection) return;
     
-    
+    // Change section title
     const sectionTitle = featuredSection.querySelector('h2');
     sectionTitle.textContent = `Search Results (${results.length} books found)`;
     
-    
+    // Replace content
     const bookGrid = featuredSection.querySelector('.book-grid');
     bookGrid.innerHTML = '';
     
@@ -2182,37 +2230,37 @@ function displaySearchResults(results) {
         });
     }
     
-    
+    // Scroll to results
     featuredSection.scrollIntoView({ behavior: 'smooth' });
 }
 
-
+// Setup tab functionality for book details
 function setupTabFunctionality() {
     const tabButtons = document.querySelectorAll('.tab-button');
     if (tabButtons.length === 0) return;
     
     tabButtons.forEach(button => {
         button.addEventListener('click', function() {
-            
+            // Remove active class from all buttons and content
             document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            
+            // Add active class to clicked button
             this.classList.add('active');
             
-            
+            // Show corresponding content
             const tabId = this.getAttribute('data-tab');
             document.getElementById(`${tabId}-tab`).classList.add('active');
         });
     });
 }
 
-
+// Check if we're on a book detail page and load the appropriate book
 function checkForBookDetailView() {
     const detailsContainer = document.querySelector('.book-details-container');
     if (!detailsContainer || detailsContainer.style.display === 'none') return;
     
-    
+    // Get book ID from URL
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = parseInt(urlParams.get('id'));
     
@@ -2224,30 +2272,30 @@ function checkForBookDetailView() {
     }
 }
 
-
+// Display book details on the book details page
 function displayBookDetails(book) {
     const detailsContainer = document.querySelector('.book-details-container');
     if (!detailsContainer) return;
     
-    
+    // Display the container
     detailsContainer.style.display = 'block';
     
-    
+    // Set book title
     document.querySelector('.book-title').textContent = book.title;
     
-    
+    // Set book author
     document.querySelector('.book-author').innerHTML = `By <a href="author.html?name=${encodeURIComponent(book.author)}">${book.author}</a>`;
     
-    
+    // Set book cover
     document.querySelector('.book-cover-large img').src = book.coverImage;
     document.querySelector('.book-cover-large img').alt = book.title;
     
-    
+    // Set metadata
     document.querySelector('.book-genre').textContent = book.genre;
     document.querySelector('.book-publish-date').textContent = `Published: ${book.publishYear}`;
     document.querySelector('.book-isbn').textContent = `ISBN: ${book.isbn}`;
     
-    
+    // Set availability
     const availabilityElement = document.querySelector('.book-availability .status');
     if (book.inStock) {
         availabilityElement.textContent = 'In Stock';
@@ -2257,10 +2305,10 @@ function displayBookDetails(book) {
         availabilityElement.className = 'status unavailable';
     }
     
-    
+    // Set description
     document.querySelector('.book-description p').textContent = book.description;
     
-    
+    // Set additional details
     const detailsList = document.querySelector('#details-tab ul');
     detailsList.innerHTML = `
         <li><strong>Number of Pages:</strong> ${book.pages}</li>
@@ -2269,19 +2317,19 @@ function displayBookDetails(book) {
         <li><strong>Dimensions:</strong> ${book.dimensions}</li>
     `;
     
-    
+    // Load similar books (in this case, other Harry Potter books)
     loadSimilarBooks(book);
 }
 
-
+// Load similar books in the book details page
 function loadSimilarBooks(book) {
     const similarBooksContainer = document.querySelector('.similar-books-grid');
     if (!similarBooksContainer) return;
     
-    
+    // Find other Harry Potter books, excluding the current book
     const similarBooks = books.filter(b => b.id !== book.id);
     
-    
+    // Display up to 3 similar books
     similarBooksContainer.innerHTML = '';
     similarBooks.slice(0, 3).forEach(similarBook => {
         similarBooksContainer.appendChild(createBookCard(similarBook));
@@ -2303,13 +2351,13 @@ function setupCollapsibleSections() {
     });
 }
 
-
+// Scroll event listener for header and sections animation
 window.addEventListener('scroll', function() {
     const header = document.querySelector('header');
     const scrollTop = document.querySelector('.scroll-top');
     const sections = document.querySelectorAll('section');
     
-    
+    // Change header style on scroll
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
         scrollTop.classList.add('visible');
@@ -2318,7 +2366,7 @@ window.addEventListener('scroll', function() {
         scrollTop.classList.remove('visible');
     }
     
-    
+    // Animate sections on scroll
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
         if (sectionTop < window.innerHeight - 100) {
@@ -2327,7 +2375,7 @@ window.addEventListener('scroll', function() {
     });
 });
 
-
+// Smooth scroll for internal links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -2341,7 +2389,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-
+// Tab functionality
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
 
@@ -2359,7 +2407,7 @@ if (tabButtons.length > 0) {
     });
 }
 
-
+// Scroll to top button
 const scrollTopButton = document.querySelector('.scroll-top');
 if (scrollTopButton) {
     scrollTopButton.addEventListener('click', () => {
@@ -2368,5 +2416,4 @@ if (scrollTopButton) {
             behavior: 'smooth'
         });
     });
-
 }
