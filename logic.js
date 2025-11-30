@@ -2417,3 +2417,27 @@ if (scrollTopButton) {
         });
     });
 }
+
+function openRulesModal() {
+    document.getElementById('rulesModal').classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeRulesModal() {
+    document.getElementById('rulesModal').classList.remove('active');
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close modal when clicking outside the modal container
+document.getElementById('rulesModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeRulesModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeRulesModal();
+    }
+});
